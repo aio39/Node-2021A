@@ -14,6 +14,9 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
+// req.method, req.url , req.url.startWith , req.url.split , JSON.parse(req.body)
+// req.on('data',(data)=> {body += body}),  // 내부적으로 stream으로 되어있다.
+// req.on('end' ,cb)
 server.listen(8080);
 
 server.on('listening', () => {
