@@ -237,3 +237,5 @@ example
 
 
 node_modules
+config.json
+./mysqlTest/config
