@@ -29,7 +29,7 @@ module.exports = class User extends Sequelize.Model {
       },
       {
         sequelize, // 매개 변ㅅ 연결 옵션으로 db.sequelize 객체를 넣어야함.
-        timestamp: false, // 자동으로 createAt updateAt을 만들어줌.
+        timestamps: false, // 자동으로 createAt updateAt을 만들어줌.
         underscored: false, // 테이블과 컬럼 명을 camelScore
         modelName: 'User', // node에서 사용하는 모델명
         tableName: 'users', // 실재 db의 테이블
