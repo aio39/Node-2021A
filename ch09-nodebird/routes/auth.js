@@ -27,7 +27,7 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
   }
 });
 
-router.post('/login', isNotLoggedIn, (res, req, next) => {
+router.post('/login', isNotLoggedIn, (req, res, next) => {
   // local 전략을 사용
   // 미들웨어 내부의 미들웨어
   passport.authenticate('local', (authError, user, info) => {
@@ -50,7 +50,7 @@ router.post('/login', isNotLoggedIn, (res, req, next) => {
   })(req, res, next); // 미들웨어 내의 미들웨어
 });
 
-router.get('logout', isLoggedIn, (req, res) => {
+router.get('/logout', isLoggedIn, (req, res) => {
   // req에서 user객체를 제거하고 session도 제거함.
   req.logout();
   req.session.destroy();
