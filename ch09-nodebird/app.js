@@ -11,6 +11,7 @@ dotenv.config();
 const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
 const postRouter = require('./routes/post');
+const userRouter = require('./routes/user');
 const { sequelize } = require('./models/index');
 const passportConfig = require('./passport'); // index.js 는 생략 가능
 const passport = require('passport');
@@ -38,7 +39,9 @@ sequelize
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img', express.static(path.join(__dirname, 'uploads')));
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -58,6 +61,7 @@ app.use(passport.session()); // res.session에 passport 설정을 저장.
 app.use('/', pageRouter);
 app.use('/auth', authRouter);
 app.use('/post', postRouter);
+app.use('/user', userRouter);
 
 app.use((err, req, res, next) => {
   res.locals.message = err.message;

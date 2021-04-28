@@ -60,23 +60,4 @@ router.post('/', isLoggedIn, upload2.none(), async (req, res, next) => {
   }
 });
 
-router.get('/', async (req, res, next) => {
-  try {
-    const posts = await Post.findAll({
-      include: {
-        model: User,
-        attributes: ['id', 'nick'],
-      },
-      order: [['createdAt', 'DESC']],
-    });
-    res.render('main', {
-      title: 'NodeBird',
-      twits: posts,
-    });
-  } catch (err) {
-    console.error(err);
-    next(err);
-  }
-});
-
 module.exports = router;
