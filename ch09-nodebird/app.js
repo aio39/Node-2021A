@@ -10,6 +10,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const pageRouter = require('./routes/page');
 const authRouter = require('./routes/auth');
+const postRouter = require('./routes/post');
 const { sequelize } = require('./models/index');
 const passportConfig = require('./passport'); // index.js 는 생략 가능
 const passport = require('passport');
@@ -56,6 +57,7 @@ app.use(passport.initialize()); // req에 passport 설정을  넣음.
 app.use(passport.session()); // res.session에 passport 설정을 저장.
 app.use('/', pageRouter);
 app.use('/auth', authRouter);
+app.use('/post', postRouter);
 
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
