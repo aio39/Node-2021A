@@ -30,24 +30,28 @@ router.post('/join', isNotLoggedIn, async (req, res, next) => {
 router.post('/login', isNotLoggedIn, (req, res, next) => {
   // local 전략을 사용
   // 미들웨어 내부의 미들웨어
-  passport.authenticate('local', (authError, user, info) => {
-    if (authError) {
-      console.error(authError);
-      return next(authError);
-    }
-    if (!user) {
-      return res.redirect(`/?loginError=${info.message}`);
-    }
-    // passport는 login과 logout 메소드를 넣어줌.
-    // login 메소드는 user.serializeUser를 실행함.
-    return req.login(user, loginError => {
-      if (loginError) {
-        console.error(loginError);
-        return next(loginError);
+  passport.authenticate(
+    'local',
+    { session: false },
+    (authError, user, info) => {
+      if (authError) {
+        console.error(authError);
+        return next(authError);
       }
-      return res.redirect('/');
-    });
-  })(req, res, next); // 미들웨어 내의 미들웨어
+      if (!user) {
+        return res.redirect(`/?loginError=${info.message}`);
+      }
+      // passport는 login과 logout 메소드를 넣어줌.
+      // login 메소드는 user.serializeUser를 실행함.
+      return req.login(user, loginError => {
+        if (loginError) {
+          console.error(loginError);
+          return next(loginError);
+        }
+        return res.redirect('/');
+      });
+    },
+  )(req, res, next); // 미들웨어 내의 미들웨어
 });
 
 router.get('/logout', isLoggedIn, (req, res) => {

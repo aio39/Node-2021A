@@ -13,6 +13,7 @@ const authRouter = require('./routes/auth');
 const { sequelize } = require('./models/index');
 const passportConfig = require('./passport'); // index.js 는 생략 가능
 const passport = require('passport');
+const { v1 } = require('uuid');
 
 const app = express();
 passportConfig();
@@ -56,6 +57,7 @@ app.use(
 );
 app.use(passport.initialize()); // req에 passport 설정을  넣음.
 app.use(passport.session()); // res.session에 passport 설정을 저장.
+app.use('/v1', v1);
 app.use('/auth', authRouter);
 app.use('/', indexRouter);
 
