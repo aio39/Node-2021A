@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
       where: { id: (req.user && req.user.id) || null },
       include: { model: Domain },
     });
-    res.render('login', { user, domains: user && user.domains });
+    res.render('login', { user, domains: user && user.Domains });
   } catch (error) {
     console.error(error);
     next(error);
@@ -32,3 +32,5 @@ router.post('/domain', isLoggedIn, async (req, res, next) => {
     next(error);
   }
 });
+
+module.exports = router;
