@@ -50,7 +50,7 @@ router.get('/hashtag', async (req, res, next) => {
     const hashtag = await Hashtag.findOne({ where: { title: query } });
     let posts = [];
     if (hashtag) {
-      posts = await hashtags.getPosts({ include: [{ model: User }] });
+      posts = await hashtag.getPosts({ include: [{ model: User }] });
     }
 
     return res.render('main', { title: `${query} | NodeBird`, twits: posts });
